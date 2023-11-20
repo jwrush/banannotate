@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DirectoryController < ApplicationController
   def index
     # Your code here

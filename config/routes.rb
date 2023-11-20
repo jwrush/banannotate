@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  resources :directory, only: [:index, :show]
+  resources :directory, only: %i[index show]
 end
