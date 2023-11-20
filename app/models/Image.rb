@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# The Image class is used to represent a directory on disk.
 class Image
   attr_reader :path
 
