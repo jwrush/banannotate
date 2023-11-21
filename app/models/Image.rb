@@ -9,10 +9,16 @@ class Image
   end
 
   def caption_exists?
-    file.exist?(caption_path)
+    File.exist?(caption_path)
   end
 
   def caption_path
     "#{path}.txt"
+  end
+
+  def caption
+    return nil unless caption_exists?
+
+    File.read(caption_path)
   end
 end
