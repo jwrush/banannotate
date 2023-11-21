@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Web Page</title>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+    <h1>Banannotate</h1>
+    
+    <div class="main-content">
+    <div class="control_group row">
+        <input class="col-6" type="text" name="directory" id="directory" value="">
+        <div class="button col-1">Load Directory</div>
+    </div>
+    <div class="control_group row container">
+        <div class="row">
+            <div class="button col">Prev</div>
+            <div class="button col">Next</div>
+        </div>
+        <div class="row">
+            <img class="image_display col" />
+            <div class="col">
+                <input class="row" type="text" name="caption" id="caption" value="">
+                <div class="row button">Save</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

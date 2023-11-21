@@ -23,6 +23,8 @@ gem 'rubocop', '~> 1.21.0', require: false
 gem 'rubocop-rails', '~> 2.11.0', require: false
 gem 'rubocop-rspec', '~> 2.1.0', require: false
 
+gem 'bootstrap', '~> 5.1.3'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
