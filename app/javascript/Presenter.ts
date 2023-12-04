@@ -8,6 +8,40 @@ export class Presenter {
         this._document = document;
     }
 
+    setControlAvailability(state: State) {
+        let leftButtonElement = this._document.querySelector('#left-button') as HTMLElement;
+        if (leftButtonElement) {
+            leftButtonElement.classList.toggle('disabled', !state.canMoveLeft)
+        }
+        else {
+            log(`PRESENTER - leftButtonElement is null`);
+        }
+
+        let rightButtonElement = this._document.querySelector('#right-button') as HTMLElement;
+        if (rightButtonElement) {
+            rightButtonElement.classList.toggle('disabled', !state.canMoveRight)
+        }
+        else {
+            log(`PRESENTER - rightButtonElement is null`);
+        }
+       
+        let saveCaptionButtonElement = this._document.querySelector('#save-caption-button') as HTMLButtonElement;
+        if (saveCaptionButtonElement) {
+            saveCaptionButtonElement.classList.toggle('disabled', !state.captionDirty);
+        }
+        else {
+            log(`PRESENTER - saveCaptionButtonElement is null`);
+        }
+
+        let restoreCaptionButtonElement = this._document.querySelector('#cancel-caption-button') as HTMLButtonElement;
+        if (restoreCaptionButtonElement) {
+            restoreCaptionButtonElement.classList.toggle('disabled', !state.captionDirty);
+        }
+        else {
+            log(`PRESENTER - cancelCaptionButtonElement is null`);
+        }
+    }
+
     setDirectoryPath(directoryPath: string | null) {
         let directoryPathElement = this._document.querySelector('input#directory') as HTMLInputElement;
         
@@ -31,6 +65,7 @@ export class Presenter {
         let captionElement = this._document.querySelector('div#caption') as HTMLDivElement;
         if (captionElement) {
             captionElement.innerText = caption || "";
+            captionElement.focus();
         }
         else {
             log(`PRESENTER - captionElement is null`);
@@ -39,6 +74,12 @@ export class Presenter {
 
     present(state: State) {
         log(`PRESENTER presenting - ${state}`);
+
+        this.setControlAvailability(state);
+
+        if (state.captionDirty) {
+            return;
+        }
 
         this.setDirectoryPath(state.directoryPath);
         this.setImage(state.image, state.caption);

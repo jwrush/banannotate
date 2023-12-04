@@ -4,5 +4,5 @@ import { log } from "../log";
 log("Hello world!!!!")
 
 window.onload = function() {
-    window.banannotate = new Banannotate(window.document);
+    window.banannotate = new Banannotate(window);
 };

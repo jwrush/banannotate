@@ -4,6 +4,7 @@ export class State {
     imageOffset: number;
     image: string | null;
     caption: string | null;
+    captionDirty: boolean;
 
     canMoveLeft: boolean;
     canMoveRight: boolean;
@@ -13,6 +14,7 @@ export class State {
         directory: any | null,
         image: string | null,
         imageOffset: number | null,
+        captionDirty: boolean,
         caption: string | null,
         canMoveLeft: boolean, 
         canMoveRight: boolean, 
@@ -20,6 +22,7 @@ export class State {
         this.directoryPath = loaded_path;
         this.directory = directory;
         this.image = image;
+        this.captionDirty = captionDirty;
         this.caption = caption;
 
         this.canMoveLeft = canMoveLeft;

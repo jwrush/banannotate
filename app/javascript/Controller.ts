@@ -35,6 +35,7 @@ export class Controller {
             null,
             null,
             null,
+            false,
             null,
             false,
             false,
@@ -44,6 +45,10 @@ export class Controller {
     async moveLeft(currentState: State) {
         this._log_callback("moveLeft");
 
+        if (!currentState.canMoveLeft) { 
+            return;
+        }
+
         let newOffset: number, newURL: string;
         ({ newOffset, newURL } = this.determineNextImage(currentState, false));
         let newCaption = (await this._api.getCaption(newURL)).caption;
@@ -52,6 +57,7 @@ export class Controller {
             currentState.directory,
             newURL,
             newOffset,
+            false,
             newCaption,
             this.canMove(currentState, false),
             this.canMove(currentState, true),
@@ -61,6 +67,10 @@ export class Controller {
     async moveRight(currentState: State) {
         this._log_callback("moveRight");
 
+        if (!currentState.canMoveRight) {
+            return;
+        }
+
         let newOffset: number, newURL: string;
         ({ newOffset, newURL } = this.determineNextImage(currentState, true));
         let newCaption = (await this._api.getCaption(newURL)).caption;
@@ -69,6 +79,7 @@ export class Controller {
             currentState.directory,
             newURL,
             newOffset,
+            false,
             newCaption,
             this.canMove(currentState, false),
             this.canMove(currentState, true),
@@ -78,10 +89,15 @@ export class Controller {
     async loadDirectory(currentState: State, directoryPath: string) {
         this._log_callback("loadDirectory");
 
+        if (!currentState.canLoadDirectory) {
+            return;
+        }
+
         this._updateState(new State(directoryPath,
             null,
             null,
             null,
+            false,
             null,
             false,
             false,
@@ -98,6 +114,7 @@ export class Controller {
                 new_directory,
                 newImageUrl,
                 newImageOffset,
+                false,
                 newCaption,
                 this.canMove(currentState, false),
                 this.canMove(currentState, true),
@@ -109,12 +126,41 @@ export class Controller {
                 currentState.directory,
                 currentState.image,
                 currentState.imageOffset,
+                currentState.captionDirty,
                 currentState.caption,
                 this.canMove(currentState, false),
                 this.canMove(currentState, true),
                 true));
         }
     
+    }
+
+    async markCaptionDirty(currentState: State) {
+        this._log_callback("markCaptionDirty");
+
+        this._updateState(new State(currentState.directoryPath,
+            currentState.directory,
+            currentState.image,
+            currentState.imageOffset,
+            true,
+            currentState.caption,
+            false,
+            false,
+            false));
+    }
+
+    async restoreCaption(currentState: State) {
+        this._log_callback("restoreCaption");
+
+        this._updateState(new State(currentState.directoryPath,
+            currentState.directory,
+            currentState.image,
+            currentState.imageOffset,
+            false,
+            currentState.caption,
+            this.canMove(currentState, false),
+            this.canMove(currentState, true),
+            true));
     }
 
     async saveCaption(currentState: State, newCaption: string) {
@@ -126,6 +172,7 @@ export class Controller {
                 currentState.directory,
                 currentState.image,
                 currentState.imageOffset,
+                false,
                 newCaption,
                 this.canMove(currentState, false),
                 this.canMove(currentState, true),
@@ -137,6 +184,7 @@ export class Controller {
                 currentState.directory,
                 currentState.image,
                 currentState.imageOffset,
+                currentState.captionDirty,
                 newCaption,
                 this.canMove(currentState, false),
                 this.canMove(currentState, true),

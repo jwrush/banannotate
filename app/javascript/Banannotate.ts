@@ -9,7 +9,8 @@ export class Banannotate {
     presenter: Presenter | null;
     controller: Controller | null;
 
-    constructor(document: Document = window.document) {
+    constructor(window: Window) {
+        const document = window.document;
         const csrfTokenElement = document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement;
         if (!csrfTokenElement) {
             throw new Error("Couldn't find CSRF token");
@@ -22,7 +23,7 @@ export class Banannotate {
         this.controller = new Controller(api, updateState);
 
         let inputAdaptor: InputAdaptor = new InputAdaptor();
-        inputAdaptor.mount(document, this.controller, getCurrentState);
+        inputAdaptor.mount(window, this.controller, getCurrentState);
 
         let me = this;
 
