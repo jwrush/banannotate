@@ -61,11 +61,11 @@ body {
     padding: 20px;
 }
 
-.main-content > .control_group {
+.main-content > .control-group {
     margin-bottom: 20px;
 }
 
-.main-content > .control_group > div {
+.main-content > .control-group > div {
     margin-bottom: 5px;
 }
 
