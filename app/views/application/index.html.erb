@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='csrf-token' content='<%= form_authenticity_token %>' />
     <title>My Web Page</title>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -24,8 +25,8 @@
         <div class="row">
             <img id='current-image' class="image-display col" />
             <div class="col">
-                <input class="row" type="text" name="caption" id="caption" value="">
-                <div class="row button">Save</div>
+                <div class="row text-field" name="caption" id="caption" contenteditable></div>
+                <div id='save-caption-button' class="row button">Save</div>
             </div>
         </div>
     </div>

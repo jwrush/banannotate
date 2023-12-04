@@ -35,6 +35,7 @@ export class Controller {
             null,
             null,
             null,
+            null,
             false,
             false,
             true));
@@ -45,11 +46,13 @@ export class Controller {
 
         let newOffset: number, newURL: string;
         ({ newOffset, newURL } = this.determineNextImage(currentState, false));
+        let newCaption = (await this._api.getCaption(newURL)).caption;
 
         this._updateState(new State(currentState.directoryPath,
             currentState.directory,
             newURL,
             newOffset,
+            newCaption,
             this.canMove(currentState, false),
             this.canMove(currentState, true),
             true));
@@ -60,11 +63,13 @@ export class Controller {
 
         let newOffset: number, newURL: string;
         ({ newOffset, newURL } = this.determineNextImage(currentState, true));
-
+        let newCaption = (await this._api.getCaption(newURL)).caption;
+        
         this._updateState(new State(currentState.directoryPath,
             currentState.directory,
             newURL,
             newOffset,
+            newCaption,
             this.canMove(currentState, false),
             this.canMove(currentState, true),
             true));
@@ -77,6 +82,7 @@ export class Controller {
             null,
             null,
             null,
+            null,
             false,
             false,
             false));
@@ -86,11 +92,13 @@ export class Controller {
 
             let newImageOffset = 0;
             let newImageUrl = new_directory.files[newImageOffset]?.url;
+            let newCaption = (await this._api.getCaption(newImageUrl)).caption;
 
             this._updateState(new State(new_directory.path,
                 new_directory,
                 newImageUrl,
                 newImageOffset,
+                newCaption,
                 this.canMove(currentState, false),
                 this.canMove(currentState, true),
                 true));
@@ -101,9 +109,39 @@ export class Controller {
                 currentState.directory,
                 currentState.image,
                 currentState.imageOffset,
+                currentState.caption,
+                this.canMove(currentState, false),
+                this.canMove(currentState, true),
+                true));
+        }
+    
+    }
+
+    async saveCaption(currentState: State, newCaption: string) {
+        this._log_callback("saveCaption");
+
+        try {
+            await this._api.putCaption(currentState.image, newCaption);
+            this._updateState(new State(currentState.directoryPath,
+                currentState.directory,
+                currentState.image,
+                currentState.imageOffset,
+                newCaption,
+                this.canMove(currentState, false),
+                this.canMove(currentState, true),
+                true));
+        } catch (error) {
+            console.error(error);
+
+            this._updateState(new State(currentState.directoryPath,
+                currentState.directory,
+                currentState.image,
+                currentState.imageOffset,
+                newCaption,
                 this.canMove(currentState, false),
                 this.canMove(currentState, true),
                 true));
         }
     }
+
 }

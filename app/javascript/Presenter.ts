@@ -19,7 +19,7 @@ export class Presenter {
         }
     }
 
-    setImage(image: string | null) {
+    setImage(image: string | null, caption: string | null) {
         let imageElement = this._document.querySelector('img#current-image') as HTMLImageElement;
         if (imageElement) {
             imageElement.src = image || "";
@@ -27,12 +27,20 @@ export class Presenter {
         else {
             log(`PRESENTER - imageElement is null`);
         }
+
+        let captionElement = this._document.querySelector('div#caption') as HTMLDivElement;
+        if (captionElement) {
+            captionElement.innerText = caption || "";
+        }
+        else {
+            log(`PRESENTER - captionElement is null`);
+        }
     }
 
     present(state: State) {
         log(`PRESENTER presenting - ${state}`);
 
         this.setDirectoryPath(state.directoryPath);
-        this.setImage(state.image);
+        this.setImage(state.image, state.caption);
     }
 }

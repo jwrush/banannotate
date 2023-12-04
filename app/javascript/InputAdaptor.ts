@@ -18,5 +18,10 @@ export class InputAdaptor {
             let newPath = document.querySelector('#directory').value;
             input.loadDirectory(getCurrentState(), newPath);
         });
+
+        document.querySelector('#save-caption-button').addEventListener('click', async () => {
+            let newCaption = document.querySelector('#caption').innerText;
+            input.saveCaption(getCurrentState(), newCaption);
+        });
     }
 }
