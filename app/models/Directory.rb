@@ -24,7 +24,7 @@ class Directory
        .map do |f|
       {
         'filename' => f,
-        'url' => "/image/#{Base64.encode64("#{path}/#{f}")}/show"
+        'url' => "/image/#{Base64.encode64("#{path}/#{f}")}"
       }
     end
   end
