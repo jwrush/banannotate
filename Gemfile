@@ -11,6 +11,8 @@ gem 'rails', '~> 7.0.8'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 
+gem 'webpacker'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
 
@@ -24,6 +26,7 @@ gem 'rubocop-rails', '~> 2.11.0', require: false
 gem 'rubocop-rspec', '~> 2.1.0', require: false
 
 gem 'bootstrap', '~> 5.1.3'
+#gem 'typescript-rails'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
