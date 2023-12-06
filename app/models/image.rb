@@ -13,7 +13,7 @@ class Image
   end
 
   def caption_path
-    "#{path}.txt"
+    path.gsub(/\.[^.]+\z/, '.txt')
   end
 
   def caption
